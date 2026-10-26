@@ -5,3 +5,6 @@ dist/
 .pytest_cache/
 sut/__pycache__/
 tests/__pycache__/
+packaging/deb/usr/share/sut/
+packaging/deb/usr/share/doc/
+packaging/deb/usr/share/icons/
