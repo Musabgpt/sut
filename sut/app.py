@@ -49,11 +49,25 @@ class SutApp(tk.Tk):
             style.theme_use("clam")
         except tk.TclError:
             pass
-        style.configure("TButton", padding=(12, 8), font=("DejaVu Sans", 12, "bold"))
-        style.configure("TLabel", font=("DejaVu Sans", 11))
-        style.configure("TLabelframe.Label", font=("DejaVu Sans", 12, "bold"))
-        style.configure("Treeview", rowheight=28, font=("DejaVu Sans", 11))
-        style.configure("Treeview.Heading", font=("DejaVu Sans", 11, "bold"))
+
+        # Use Noto Sans Arabic (available on system) for Arabic text rendering
+        TK_FONT = ("Noto Sans Arabic", 11)
+        TK_FONT_BOLD = ("Noto Sans Arabic", 12, "bold")
+        TK_FONT_SMALL = ("Noto Sans Arabic", 10)
+
+        # Apply Arabic-friendly fonts globally
+        style.configure("TButton", padding=(12, 8), font=TK_FONT_BOLD)
+        style.configure("TLabel", font=TK_FONT)
+        style.configure("TLabelframe.Label", font=TK_FONT_BOLD)
+        style.configure("Treeview", rowheight=28, font=TK_FONT)
+        style.configure("Treeview.Heading", font=TK_FONT_BOLD)
+
+        # Set default Tk fonts to Noto Sans Arabic (fixes Arabic rendering)
+        self.tk.call("font", "configure", "TkDefaultFont", "-family", "Noto Sans Arabic", "-size", "11")
+        self.tk.call("font", "configure", "TkTextFont", "-family", "Noto Sans Arabic", "-size", "11")
+        self.tk.call("font", "configure", "TkHeadingFont", "-family", "Noto Sans Arabic", "-size", "12", "-weight", "bold")
+        self.tk.call("font", "configure", "TkFixedFont", "-family", "Noto Sans Arabic", "-size", "11")
+        self.tk.call("font", "configure", "TkMenuFont", "-family", "Noto Sans Arabic", "-size", "11")
 
         init_db()
 
