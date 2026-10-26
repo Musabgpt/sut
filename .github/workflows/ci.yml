@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Tkinter and Xvfb
+        run: sudo apt-get update && sudo apt-get install -y python3-tk xvfb
+
+      - name: Compile check
+        run: python -m compileall -q sut
+
+      - name: Run tests (headless GUI)
+        run: xvfb-run -a python -m unittest discover -s tests -v
+
+      - name: Build DEB
+        run: bash packaging/build_deb.sh
+
+      - name: Install DEB and smoke test launcher
+        run: |
+          sudo apt-get install -y ./dist/sut_*_all.deb
+          test -f /usr/share/icons/hicolor/256x256/apps/sut.png
+          test -f /usr/share/applications/sut.desktop
+          test -f /usr/bin/sut
+          timeout 8 xvfb-run -a sut || test $? -eq 124
+
+      - name: Upload DEB
+        uses: actions/upload-artifact@v4
+        with:
+          name: sut-deb
+          path: dist/*.deb

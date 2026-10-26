@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+dist/
+*.deb
+.pytest_cache/
+sut/__pycache__/
+tests/__pycache__/

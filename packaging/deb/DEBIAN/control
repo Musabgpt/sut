@@ -1,0 +1,10 @@
+Package: sut
+Version: 0.1.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.10), python3-tk
+Maintainer: MusabAI <musab@example.com>
+Description: SUT — البائع السوري
+ Simple offline sales management for small Syrian shops.
+ Uses Tkinter and SQLite and requires no internet connection.

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=SUT — البائع السوري
+Comment=إدارة مبيعات محل سوري (بدون إنترنت)
+Exec=sut
+Icon=sut
+Terminal=false
+Categories=Office;Finance;
+StartupNotify=true
